@@ -1,11 +1,10 @@
-import React from "react";
 import TestPage from "../pages/TestPage";
-import HomePage from "../pages/HomePage";
-import AboutPage from "../pages/About";
-import CatalogPage from "../pages/Catalog";
-import CategoriesPage from "../pages/Categories";
+import HomePage from "../pages/HomePage/HomePage";
+import CatalogPage from "../pages/Catalog/Catalog";
+import CategoriesPage from "../pages/Categories/Categories";
+import AboutPage from "../pages/About/About";
 
-export const APP_ROUTES: any = [
+export const APP_ROUTES = [
     { path: "*", element: <HomePage /> },
     { path: "/test", element: <TestPage /> },
     { path: "/catalog", element: <CatalogPage /> },
@@ -13,4 +12,4 @@ export const APP_ROUTES: any = [
     { path: "/about", element: <AboutPage /> },
 ];
 
-export const ROUTES: any[] = [...APP_ROUTES];
+export const ROUTES = [...APP_ROUTES];

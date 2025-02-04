@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
-import { ROUTES } from "../routes/routes";
 import Header2 from "../components/Header2";
 import Footer from "../components/Footer";
+import { ROUTES } from "../routes/routes";
 
 const Layout = () => {
     return (

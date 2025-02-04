@@ -1,4 +1,4 @@
-import boardGameHero from "../assets/images/board_game_hero.avif";
+import boardGameHero from "../../../assets/images/board_game_hero.avif";
 
 const HomepageHero = () => {
     return (
