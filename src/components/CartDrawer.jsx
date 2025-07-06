@@ -1,10 +1,10 @@
 import { ShoppingCart } from "lucide-react";
-import { useCartState } from "../store/cart-store";
+import { useCartState, useCartStore } from "../store/cart-store";
 
 const CartDrawer = () => {
     const isCartOpen = useCartState((state) => state.isCartOpen);
     const setIsCartOpen = useCartState((state) => state.setIsCartOpen);
-
+    const cartItems = useCartStore((state) => state.cartItems);
     return (
         <div className="drawer drawer-end max-w-[200px]">
             <input
@@ -30,15 +30,32 @@ const CartDrawer = () => {
                     className="drawer-overlay"
                     onClick={() => setIsCartOpen(false)}
                 ></label>
-                <ul className="menu bg-base-200 text-base-content min-h-full p-4 w-[450px]">
-                    {/* Sidebar content here */}
-                    <li>
-                        <a>Sidebar Item 1</a>
-                    </li>
-                    <li>
-                        <a>Sidebar Item 2</a>
-                    </li>
-                </ul>
+                <div className="menu bg-base-200 text-base-content min-h-full p-4 w-[450px] flex flex-col justify-between">
+                    <div>
+                        <h1 className="mb-[20px] text-xl font-semibold">
+                            My Cart
+                        </h1>
+                        {/* CART ITEM CARD */}
+                        {cartItems.map((item, index) => {
+                            return (
+                                <a
+                                    href={`/shop/${item.slug}`}
+                                    key={index}
+                                    className={`flex justify-between items-center ${index !== cartItems.length - 1 ? "mb-[20px] pb-[20px] border-b" : ""}`}
+                                >
+                                    <img
+                                        src={item.image}
+                                        className="max-h-[80px]"
+                                    />
+                                    <span>{item.name}</span>
+                                    <span>{item.price}</span>
+                                    <span>{item.amount}</span>
+                                </a>
+                            );
+                        })}
+                    </div>
+                    <div className="btn btn-accent">Checkout</div>
+                </div>
             </div>
         </div>
     );

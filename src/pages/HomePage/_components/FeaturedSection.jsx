@@ -18,7 +18,7 @@ const FeaturedSection = () => {
                 <div className="col-span-6">
                     <div className="flex flex-col max-w-md">
                         <div>
-                            <h1 className="text-4xl text-transparent bg-clip-text font-semibold bg-gradient-to-r from-cyan-800 via-white  to-sky-600 mb-[30px]">
+                            <h1 className="text-4xl text-transparent bg-clip-text font-semibold bg-gradient-to-r from-cyan-800 via-white  to-sky-600 mb-[30px] leading-normal">
                                 Cryptid
                             </h1>
                             <p>
