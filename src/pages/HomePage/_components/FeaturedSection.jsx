@@ -8,7 +8,7 @@ const FeaturedSection = () => {
     ];
     return (
         <section className="max-w-[1300px] mx-auto py-[45px]">
-            <h2 className="text-5xl w-full text-transparent bg-clip-text font-extrabold bg-gradient-to-r from-violet-600 via-red-400  to-pink-600 text-center mb-[30px] leading-normal">
+            <h2 className="text-5xl w-full text-transparent bg-clip-text font-extrabold bg-gradient-to-r from-violet-600 via-red-500  to-pink-700 text-center mb-[30px] leading-normal">
                 Featured Game
             </h2>
             <div className="grid grid-cols-12 gap-[40px] my-[20px]">

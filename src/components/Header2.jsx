@@ -1,4 +1,4 @@
-import CartDrawer from "./CartDrawer";
+import CartDrawer from "./cart-drawer";
 
 const Header2 = () => {
     const NAV_ITEMS = [

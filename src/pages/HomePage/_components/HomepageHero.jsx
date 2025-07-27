@@ -35,7 +35,7 @@ const HomepageHero = () => {
             <div className="hero-overlay bg-opacity-60"></div>
             <div className="hero-content text-center">
                 <div className="max-w-lg">
-                    <h1 className="text-6xl w-full text-transparent bg-clip-text font-extrabold bg-gradient-to-r from-violet-600 via-red-400  to-pink-600 p-2">
+                    <h1 className="text-6xl w-full text-transparent bg-clip-text font-extrabold bg-gradient-to-r from-violet-600 via-red-500  to-pink-700 p-2">
                         Cassa Picasso
                     </h1>
                     <p className="text-3xl text-white">Game time zone</p>

@@ -1,3 +1,46 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+ul {
+    list-style: disc;
+}
+
+.rating {
+    background-color: #cfcfcf;
+    width: 120px;
+    height: 45px;
+    mask-image: url("./assets/images/five-stars.svg");
+    mask-repeat: no-repeat;
+    mask-size: contain;
+    mask-position: center;
+}
+
+.rating__percentage {
+    background-color: #f69436;
+    height: 100%;
+}
+
+/* RangeSlider Thumbs */
+input[type="range"]::-webkit-slider-thumb {
+    pointer-events: all;
+    width: 7px;
+    height: 16px;
+    border-radius: 9999px;
+    background: #3b82f6; /* Tailwind blue-500 */
+    border: 2px solid white;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+    -webkit-appearance: none;
+    cursor: pointer;
+}
+
+input[type="range"]::-moz-range-thumb {
+    pointer-events: all;
+    width: 7px;
+    height: 16px;
+    border-radius: 9999px;
+    background: #3b82f6;
+    border: 2px solid white;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+}

@@ -1,16 +1,15 @@
+// import { useParams } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { useGetProductDetails } from "../../api/products";
-import ProductDetails from "./_components/ProductDetails";
+import ProductDetails from "./ProductDetails";
 
 const ProductPage = () => {
     const params = useParams();
 
-    // TODO: Replace product ID with product slug
-    const { isLoading, data } = useGetProductDetails(6);
+    const { isLoading, data } = useGetProductDetails(params.productSlug);
 
-    console.log(data);
     return (
-        <div className="max-w-[1300px] mx-auto pt-[40px]">
+        <div className="max-w-[1300px] mx-auto">
             {!isLoading && data ? (
                 <ProductDetails productDetails={data} />
             ) : null}
