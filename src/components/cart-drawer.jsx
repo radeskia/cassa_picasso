@@ -1,10 +1,16 @@
 import { ShoppingCart } from "lucide-react";
 import { useCartState, useCartStore } from "../store/cart-store";
+import CartItem from "./cart-item";
 
 const CartDrawer = () => {
     const isCartOpen = useCartState((state) => state.isCartOpen);
     const setIsCartOpen = useCartState((state) => state.setIsCartOpen);
     const cartItems = useCartStore((state) => state.cartItems);
+
+    const cartTotal = cartItems.reduce((acc, curr) => {
+        return curr.amount * curr.price + acc;
+    }, 0);
+
     return (
         <div className="drawer drawer-end max-w-[200px]">
             <input
@@ -30,31 +36,35 @@ const CartDrawer = () => {
                     className="drawer-overlay"
                     onClick={() => setIsCartOpen(false)}
                 ></label>
-                <div className="menu bg-base-200 text-base-content min-h-full p-4 w-[450px] flex flex-col justify-between">
+                <div className="menu bg-base-200 text-base-content min-h-full px-4 py-8 w-[450px] flex flex-col justify-between">
                     <div>
-                        <h1 className="mb-[20px] text-xl font-semibold">
+                        <h1 className="mb-[40px] text-xl font-semibold text-slate-300">
                             My Cart
                         </h1>
                         {/* CART ITEM CARD */}
-                        {cartItems.map((item, index) => {
-                            return (
-                                <a
-                                    href={`/shop/${item.slug}`}
-                                    key={index}
-                                    className={`flex justify-between items-center ${index !== cartItems.length - 1 ? "mb-[20px] pb-[20px] border-b" : ""}`}
-                                >
-                                    <img
-                                        src={item.image}
-                                        className="max-h-[80px]"
+                        <div className="px-[10px]">
+                            {cartItems.map((item, index) => {
+                                return (
+                                    <CartItem
+                                        product={item}
+                                        key={index}
+                                        isLast={index === cartItems.length - 1}
                                     />
-                                    <span>{item.name}</span>
-                                    <span>{item.price}</span>
-                                    <span>{item.amount}</span>
-                                </a>
-                            );
-                        })}
+                                );
+                            })}
+                        </div>
                     </div>
-                    <div className="btn btn-accent">Checkout</div>
+                    <div className="flex flex-col gap-[20px]">
+                        <div className="flex justify-between">
+                            <div className="text-2xl text-slate-200">
+                                Subtotal:
+                            </div>
+                            <div className="text-2xl text-slate-100 font-semibold tracking-wide">
+                                ${cartTotal.toFixed(2)}
+                            </div>
+                        </div>
+                        <div className="btn btn-primary">Checkout</div>
+                    </div>
                 </div>
             </div>
         </div>

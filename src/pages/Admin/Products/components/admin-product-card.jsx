@@ -1,10 +1,7 @@
 import { Link } from "react-router-dom";
-import { cn } from "../../../lib/utils";
-import { useCartStore } from "../../../store/cart-store";
+import { cn } from "../../../../lib/utils";
 
-const ProductCard = ({ details, modifierClass }) => {
-    const addItemToCart = useCartStore((state) => state.addItemToCart);
-
+const AdminProductCard = ({ details, modifierClass }) => {
     const primaryImage = details.images.find((item) => item.isPrimary);
     return (
         <div
@@ -13,7 +10,7 @@ const ProductCard = ({ details, modifierClass }) => {
                 modifierClass
             )}
         >
-            <Link to={`/product/${details.slug}`}>
+            <div>
                 <div className="flex justify-center items-center">
                     {primaryImage ? <img src={primaryImage.url} /> : null}
                 </div>
@@ -23,22 +20,16 @@ const ProductCard = ({ details, modifierClass }) => {
                 <div className="mb-[10px] text-white text-lg">
                     ${details.price}
                 </div>
-            </Link>
+            </div>
 
-            <button
+            <Link
+                to={`/admin/products/${details.slug}/edit`}
                 className="btn btn-secondary text-neutral-100 font-bold uppercase"
-                onClick={() =>
-                    addItemToCart({
-                        ...details,
-                        product_id: details.id,
-                        image: primaryImage.url,
-                    })
-                }
             >
-                Add to cart
-            </button>
+                Edit
+            </Link>
         </div>
     );
 };
 
-export default ProductCard;
+export default AdminProductCard;

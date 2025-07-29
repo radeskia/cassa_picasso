@@ -5,23 +5,13 @@ import Tabs from "../../components/tabs";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { useState } from "react";
 import RecommendedProducts from "./_components/RelatedProducts";
-
-// export interface TabsProps {
-//   tabs: TabItemProps[];
-//   activeTabId: string;
-//   handleTabSelection: (tab: TabItemProps) => void;
-//   modifierClass?: string;
-// }
-
-// export interface TabItemProps {
-//   id: string;
-//   text: string;
-//   modifierClass?: string;
-//   icon?: React.ReactNode;
-//   disabled?: boolean;
-// }
+import { useCartStore } from "../../store/cart-store";
 
 const ProductDetails = ({ productDetails }) => {
+    const addItemToCart = useCartStore((state) => state.addItemToCart);
+
+    const primaryImage = productDetails.images.find((item) => item.isPrimary);
+
     const navigate = useNavigate();
 
     const images = productDetails.images.map((item) => {
@@ -135,7 +125,16 @@ const ProductDetails = ({ productDetails }) => {
                         </div>
 
                         <div className="mt-[20px] w-full flex justify-center">
-                            <button className="btn btn-primary font-bold uppercase w-full max-w-md">
+                            <button
+                                className="btn btn-primary font-bold uppercase w-full max-w-md"
+                                onClick={() =>
+                                    addItemToCart({
+                                        ...productDetails,
+                                        product_id: productDetails.id,
+                                        image: primaryImage.url,
+                                    })
+                                }
+                            >
                                 Add to cart
                             </button>
                         </div>

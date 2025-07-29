@@ -1,6 +1,6 @@
 import CartDrawer from "./cart-drawer";
 
-const Header2 = () => {
+const CustomerHeader = () => {
     const NAV_ITEMS = [
         { text: "Home", path: "/" },
         { text: "Catalog", path: "/catalog" },
@@ -44,23 +44,6 @@ const Header2 = () => {
                                     </li>
                                 );
                             })}
-                            {/* <li>
-                                <a>Item 1</a>
-                            </li>
-                            <li>
-                                <a>Parent</a>
-                                <ul className="p-2">
-                                    <li>
-                                        <a>Submenu 1</a>
-                                    </li>
-                                    <li>
-                                        <a>Submenu 2</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <a>Item 3</a>
-                            </li> */}
                         </ul>
                     </div>
                     <a className="btn btn-ghost text-xl" href="/">
@@ -86,4 +69,4 @@ const Header2 = () => {
     );
 };
 
-export default Header2;
+export default CustomerHeader;

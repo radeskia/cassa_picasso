@@ -1,15 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
-import { handleFetch } from "./handleFetch";
+import { handleFetch } from "../lib/handleFetch";
 
 export const useGetFourInCategory = (categorySlugs) => {
     return useQuery({
         queryKey: [`categories-products-4-${categorySlugs}`],
         queryFn: async () => {
             const requests = categorySlugs.map((slug) => {
-                return handleFetch(
-                    "GET",
-                    `${import.meta.env.VITE_SERVER_URL}product/list?page-size=4&category=${slug}`
-                );
+                return handleFetch({
+                    method: "GET",
+                    url: `product/list?page-size=4&category=${slug}`,
+                });
             });
 
             return Promise.all(requests);
@@ -22,10 +22,10 @@ export const useGetProductDetails = (productSlug) => {
     return useQuery({
         queryKey: [`product-details-${productSlug}`],
         queryFn: async () => {
-            return handleFetch(
-                "GET",
-                `${import.meta.env.VITE_SERVER_URL}product/${productSlug}`
-            );
+            return handleFetch({
+                method: "GET",
+                url: `product/${productSlug}`,
+            });
         },
         enabled: !!productSlug,
     });
@@ -39,41 +39,31 @@ export const useGetFilteredProducts = (filters) => {
         playersRange,
         playingTime,
         complexity,
+        rating,
     } = filters;
 
-    let filterString = `?min-players=${playersRange.startValue}&max-players=${playersRange.endValue}&min-playing-time=${playingTime.startValue}&max-playing-time=${playingTime.endValue}&min-price=${priceRange.startValue}&max-price=${priceRange.endValue}&in-stock-only=${inStock}${selectedCategories.length ? `&category-slugs=${selectedCategories.join(",")}` : ""}&complexity=${complexity}`;
-
-    // PLAYERS
-    // filterString +
-    //     `min-players=${playersRange.startValue}&max-players=${playersRange.endValue}`;
-
-    // PLAYING TIME
-    // filterString +
-    //     `&min-playing-time=${playingTime.startValue}&max-playing-time=${playingTime.endValue}`;
-
-    // PRICE RANGE
-    // filterString +
-    //     `&min-price=${priceRange.startValue}&max-price=${priceRange.endValue}`;
-
-    // // IN STOCK
-    // filterString + `&in-stock-only=${inStock}`;
-
-    // CATEGORIES
-    // filterString + `&category-slugs=${selectedCategories.join(",")}`;
-
-    // COMPLEXITY
-    // filterString + `&complexity=${complexity}`;
-
-    console.log(filterString);
+    let filterString = `?min-players=${playersRange.startValue}&max-players=${playersRange.endValue}&min-playing-time=${playingTime.startValue}&max-playing-time=${playingTime.endValue}&min-price=${priceRange.startValue}&max-price=${priceRange.endValue}&in-stock-only=${inStock}${selectedCategories.length ? `&category-slugs=${selectedCategories.join(",")}` : ""}&complexity=${complexity}&rating=${rating}`;
 
     return useQuery({
         queryKey: [`product-filters-${filterString}`],
         queryFn: async () => {
-            return handleFetch(
-                "GET",
-                `${import.meta.env.VITE_SERVER_URL}product/list${filterString}`
-            );
+            return handleFetch({
+                method: "GET",
+                url: `product/list${filterString}`,
+            });
         },
-        // enabled: !!productSlug,
+    });
+};
+
+export const useGetProducts = () => {
+    return useQuery({
+        queryKey: [`products`],
+        queryFn: async () => {
+            return handleFetch({
+                method: "GET",
+                url: `product/list?page-size=30`,
+            });
+        },
+        enabled: true,
     });
 };

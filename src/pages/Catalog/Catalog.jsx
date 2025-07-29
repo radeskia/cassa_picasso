@@ -21,6 +21,7 @@ const CatalogPage = () => {
         endValue: 50,
     });
     const [complexity, setComplexity] = useState(1);
+    const [rating, setRating] = useState(1);
 
     const { data: categoriesData, isLoading: categoriesLoading } =
         useGetCategories();
@@ -32,6 +33,7 @@ const CatalogPage = () => {
         selectedCategories: [],
         complexity: 1,
         inStock: false,
+        rating: 1,
     });
 
     const handleToggleCategory = (categorySlug) => {
@@ -51,7 +53,7 @@ const CatalogPage = () => {
         <div className="pt-[40px]">
             <div className="flex flex-col">
                 <h1 className="text-center text-5xl">Catalog</h1>
-                <div className="grid grid-cols-12 px-[20px] gap-[30px]">
+                <div className="grid grid-cols-12 px-[20px] gap-[30px] pt-[30px]">
                     <div className="col-span-3">
                         {!categoriesLoading && categoriesData ? (
                             <div className="bg-slate-800 px-[30px] py-[20px] flex flex-col gap-[15px]">
@@ -70,6 +72,7 @@ const CatalogPage = () => {
                                         }
                                         formatCurrency={true}
                                         label="Price"
+                                        noMax
                                     />
                                 </div>
 
@@ -86,6 +89,42 @@ const CatalogPage = () => {
                                                 setInStock(!inStock)
                                             }
                                         />
+                                    </div>
+                                </div>
+
+                                {/* RATING */}
+                                <div className="flex flex-col gap-[10px] border-b border-slate-600 pb-[15px]">
+                                    <label className="text-neutral-100">
+                                        Rating
+                                    </label>
+                                    <div className="grid grid-cols-4 gap-[10px]">
+                                        {[1, 2, 3, 4].map((value, index) => {
+                                            return (
+                                                <div
+                                                    key={index}
+                                                    className="flex gap-[10px]"
+                                                >
+                                                    <input
+                                                        checked={
+                                                            rating === value
+                                                        }
+                                                        onChange={(e) =>
+                                                            setRating(
+                                                                Number(
+                                                                    e.target
+                                                                        .value
+                                                                )
+                                                            )
+                                                        }
+                                                        type="radio"
+                                                        name="radio-5"
+                                                        value={value}
+                                                        className="radio radio-primary"
+                                                    />
+                                                    <span>{value}+</span>
+                                                </div>
+                                            );
+                                        })}
                                     </div>
                                 </div>
 
@@ -192,6 +231,7 @@ const CatalogPage = () => {
                                         })}
                                     </div>
                                 </div>
+
                                 <button
                                     className="btn btn-primary my-[10px]"
                                     onClick={() =>
@@ -202,6 +242,7 @@ const CatalogPage = () => {
                                             inStock,
                                             playingTime,
                                             selectedCategories,
+                                            rating,
                                         })
                                     }
                                 >
