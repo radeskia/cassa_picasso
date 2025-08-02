@@ -10,6 +10,7 @@ const CatalogPage = () => {
         startValue: 30,
         endValue: 90,
     });
+
     const [inStock, setInStock] = useState(false);
     const [selectedCategories, setSelectedCategories] = useState([]);
     const [playersRange, setPlayersRange] = useState({

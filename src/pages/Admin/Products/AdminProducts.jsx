@@ -1,13 +1,10 @@
 import { PlusIcon } from "lucide-react";
 import { useGetProducts } from "../../../api/products";
-import AdminProductCard from "./components/admin-product-card";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 const AdminProducts = () => {
     const { data, isLoading } = useGetProducts();
-
-    console.log("here", data);
 
     const [showModal, setShowModal] = useState(false);
     const [modalItem, setModalItem] = useState(null);
@@ -23,10 +20,15 @@ const AdminProducts = () => {
         setModalItem(null);
     };
 
+    const navigate = useNavigate();
+
     return (
         <div className="flex flex-col">
             <div className="flex justify-end w-full">
-                <button className="btn btn-primary">
+                <button
+                    className="btn btn-primary"
+                    onClick={() => navigate("/admin/products/new")}
+                >
                     <PlusIcon />
                     <span>Create</span>
                 </button>
@@ -70,14 +72,16 @@ const AdminProducts = () => {
             <div className="bg-slate-950/30 p-[10px] mt-[40px] rounded-xl border border-slate-800/90">
                 <table className="w-full">
                     <thead>
-                        <td>Image</td>
-                        <td>Name</td>
-                        <td>Players</td>
-                        <td>Complexity</td>
-                        <td>Rating</td>
-                        <td>Price</td>
-                        <td>Stock</td>
-                        <td>Actions</td>
+                        <tr>
+                            <th>Image</th>
+                            <th>Name</th>
+                            <th>Players</th>
+                            <th>Complexity</th>
+                            <th>Rating</th>
+                            <th>Price</th>
+                            <th>Stock</th>
+                            <th>Actions</th>
+                        </tr>
                     </thead>
                     <tbody>
                         {!isLoading && data && data.items

@@ -10,6 +10,7 @@ import AdminLayout from "../layout/AdminLayout";
 import LoginPage from "../pages/Login/LoginPage";
 import AdminProducts from "../pages/Admin/Products/AdminProducts";
 import EditProductPage from "../pages/Admin/Products/EditProductPage";
+import AddProductPage from "../pages/Admin/Products/AddProductPage";
 
 export const APP_ROUTES = [
     { path: "*", element: <HomePage /> },
@@ -52,6 +53,14 @@ export const ADMIN_ROUTES = [
         element: (
             <AdminLayout>
                 <EditProductPage />
+            </AdminLayout>
+        ),
+    },
+    {
+        path: "/admin/products/new",
+        element: (
+            <AdminLayout>
+                <AddProductPage />
             </AdminLayout>
         ),
     },

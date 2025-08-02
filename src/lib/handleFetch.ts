@@ -3,33 +3,33 @@ export const handleFetch = async ({
     method,
     body,
 }: {
-    url: any;
-    method: any;
-    body?: any;
+    url: string;
+    method: string;
+    body?: BodyInit | Record<string, any>;
 }) => {
     // Get token (if any) before fetching the data
     const token = localStorage.getItem("ACCESS_TOKEN");
 
+    const isFormData = body instanceof FormData;
+
     // Reusable fetch options object with conditional keys depending on request type
-    const fetchOptions = {
-        method: `${method}`,
-        ...(body && { body: JSON.stringify(body) }),
+    const fetchOptions: RequestInit = {
+        method,
         headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
             ...(token && { Authorization: `Bearer ${token}` }),
+            ...(body && !isFormData && { "Content-Type": "application/json" }),
         },
+        ...(body && {
+            body: isFormData ? body : JSON.stringify(body),
+        }),
     };
-    // Try fetching data, on successful fetching return data, else throw with appropriate message
+
     try {
         const response = await fetch(
             `${import.meta.env.VITE_SERVER_URL}${url}`,
-            {
-                ...fetchOptions,
-            }
+            fetchOptions
         );
 
-        // If there's no content returned, exit function
         if (response.status === 204) return;
 
         // If the response status is 401, logout the unauthenticated user
@@ -41,18 +41,15 @@ export const handleFetch = async ({
             location.replace("/login");
         }
 
-        // Parse the received API response data
-        const data = await response.json();
-
         // If everything is OK, return the received data
-        if (response.ok) return data;
+        const data = await response.json();
 
         // In case there's an error, display the message received
         // in the API response, or fallback to a standardized error message
-        if (!response.ok) {
-            console.log("Response was not okay!", response);
-        }
+        if (response.ok) return data;
+
+        console.error("Response not OK", response);
     } catch (error) {
-        console.log(error);
+        console.error("Fetch Error", error);
     }
 };

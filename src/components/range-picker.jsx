@@ -60,23 +60,25 @@ const RangePicker = ({
             </div>
 
             {/* Values Display */}
-            <div className="flex gap-[5px]">
-                <label>{label}: </label>
-                <div className="flex gap-[10px]">
-                    <span>
-                        {formatCurrency
-                            ? `$${ranges.startValue.toLocaleString()}`
-                            : ranges.startValue}
-                    </span>
-                    —
-                    <span>
-                        {formatCurrency
-                            ? `$${ranges.endValue.toLocaleString()}`
-                            : ranges.endValue}
-                        {ranges.endValue === max && noMax ? "+" : ""}
-                    </span>
+            {label ? (
+                <div className="flex gap-[5px]">
+                    <label>{label}: </label>
+                    <div className="flex gap-[10px]">
+                        <span>
+                            {formatCurrency
+                                ? `$${ranges.startValue.toLocaleString()}`
+                                : ranges.startValue}
+                        </span>
+                        —
+                        <span>
+                            {formatCurrency
+                                ? `$${ranges.endValue.toLocaleString()}`
+                                : ranges.endValue}
+                            {ranges.endValue === max && noMax ? "+" : ""}
+                        </span>
+                    </div>
                 </div>
-            </div>
+            ) : null}
         </div>
     );
 };

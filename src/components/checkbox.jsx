@@ -6,6 +6,8 @@ const Checkbox = ({ title, value, handleValue }) => {
                 value={value}
                 onChange={() => handleValue()}
                 className="checkbox checkbox-primary"
+                name={title}
+                checked={value}
             />
             <label>{title}</label>
         </div>
